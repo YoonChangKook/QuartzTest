@@ -23,8 +23,9 @@ import com.navercorp.example.quartztest.job.DummyJob;
 public class QuartzConfig {
 	@Bean
 	@Autowired
-	public SchedulerFactoryBean scheduler(@Qualifier("dummyJob")JobDetail dummyJob) {
+	public SchedulerFactoryBean scheduler(JobFactory jobFactory, @Qualifier("dummyJob")JobDetail dummyJob) {
 		SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
+		schedulerFactoryBean.setJobFactory(jobFactory);
 		schedulerFactoryBean.setJobDetails(new JobDetail[] { dummyJob });
 		return schedulerFactoryBean;
 	}
